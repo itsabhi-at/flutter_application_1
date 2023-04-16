@@ -203,32 +203,69 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+// class DashboardPage extends StatelessWidget {
+//   static const String routeName = '/dashboard';
+
+//   const DashboardPage({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Dashboard'),
+//         actions: [
+//           IconButton(
+//             icon: Icon(Icons.logout),
+//             onPressed: () {
+//               Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+//             },
+//           ),
+//         ],
+//       ),
+//       body: Center(
+//         child: Text(
+//           'Welcome to the dashboard!',
+//           style: TextStyle(fontSize: 24),
+//         ),
+//       ),
+//     );
+//   }
+// }
 class DashboardPage extends StatelessWidget {
   static const String routeName = '/dashboard';
-
-  const DashboardPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-            },
-          ),
-        ],
-      ),
-      body: Center(
-        child: Text(
-          'Welcome to the dashboard!',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
+        appBar: AppBar(title: Text("Dashboard"), actions: [
+      IconButton(
+          icon: Icon(Icons.logout),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: Text("Logout"),
+                      content: Text("Are you sure you want to logout?"),
+                      actions: [
+                        TextButton(
+                          child: Text("Cancel"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                              );
+                            },
+                            child: Text("Logout"))
+                      ]);
+                });
+          })
+    ]));
   }
 }
 
