@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Theme/CustomColor.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,15 +13,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Login Demo',
       theme: ThemeData(
+        colorScheme: myCustomColorScheme,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
             borderRadius: BorderRadius.circular(10),
           ),
         ),
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: LoginPage.routeName,
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
@@ -64,7 +68,10 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue, Colors.lightBlueAccent],
+            colors: [
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.secondary
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -80,17 +87,21 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
-                      color: Colors.white70,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontFamily: 'Montserrat',
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: _showError ? Colors.red : Colors.white70,
+                        color: _showError
+                            ? Theme.of(context).colorScheme.onError
+                            : Theme.of(context).colorScheme.onPrimary,
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -107,17 +118,21 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(
-                      color: Colors.white70,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontFamily: 'Montserrat',
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: _showError ? Colors.red : Colors.white70,
+                        color: _showError
+                            ? Theme.of(context).colorScheme.onError
+                            : Theme.of(context).colorScheme.onPrimary,
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -141,25 +156,26 @@ class _LoginPageState extends State<LoginPage> {
                             });
                           }
                         },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: _isLoading
                         ? CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(
-                                Theme.of(context).primaryColor),
+                              Theme.of(context).colorScheme.onPrimary,
+                            ),
                           )
-                        : Text(
+                        : const Text(
                             'Login',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                   ),
                 ),
                 SizedBox(height: 16),
@@ -172,11 +188,12 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     'Don\'t have an account? Sign up',
                     style: TextStyle(
-                      color: Colors.white70,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontFamily: 'Montserrat',
                     ),
                   ),
                 ),
+                const SizedBox()
               ],
             ),
           ),

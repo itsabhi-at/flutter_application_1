@@ -1,0 +1,8 @@
+{
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on"
+    },
+    "path-intellisense.autoTriggerNextSuggestion": true,
+    "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace"
+}
