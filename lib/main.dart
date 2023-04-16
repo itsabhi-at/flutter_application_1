@@ -205,67 +205,148 @@ class _LoginPageState extends State<LoginPage> {
 
 // class DashboardPage extends StatelessWidget {
 //   static const String routeName = '/dashboard';
-
-//   const DashboardPage({Key? key}) : super(key: key);
-
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Dashboard'),
-//         actions: [
-//           IconButton(
-//             icon: Icon(Icons.logout),
-//             onPressed: () {
-//               Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-//             },
-//           ),
-//         ],
-//       ),
-//       body: Center(
-//         child: Text(
-//           'Welcome to the dashboard!',
-//           style: TextStyle(fontSize: 24),
-//         ),
-//       ),
-//     );
+//         appBar: AppBar(title: Text("Dashboard"), actions: [
+//       IconButton(
+//           icon: Icon(Icons.logout),
+//           onPressed: () {
+//             showDialog(
+//                 context: context,
+//                 builder: (BuildContext context) {
+//                   return AlertDialog(
+//                       title: Text("Logout"),
+//                       content: Text("Are you sure you want to logout?"),
+//                       actions: [
+//                         TextButton(
+//                           child: Text("Cancel"),
+//                           onPressed: () {
+//                             Navigator.of(context).pop();
+//                           },
+//                         ),
+//                         TextButton(
+//                             onPressed: () {
+//                               Navigator.pushReplacement(
+//                                 context,
+//                                 MaterialPageRoute(
+//                                     builder: (context) => LoginPage()),
+//                               );
+//                             },
+//                             child: Text("Logout"))
+//                       ]);
+//                 });
+//           })
+//     ]));
 //   }
 // }
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   static const String routeName = '/dashboard';
+  @override
+  _DashboardPageState createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  int _selectedIndex = 0;
+  double _sliderValue = 50;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Dashboard Page'),
+    Text('Settings Page'),
+    Text('Profile Page'),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Dashboard"), actions: [
-      IconButton(
-          icon: Icon(Icons.logout),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                      title: Text("Logout"),
-                      content: Text("Are you sure you want to logout?"),
-                      actions: [
-                        TextButton(
-                          child: Text("Cancel"),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()),
-                              );
-                            },
-                            child: Text("Logout"))
-                      ]);
-                });
-          })
-    ]));
+      appBar: AppBar(
+        title: Text('Dashboard'),
+      ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        onTap: _onItemTapped,
+      ),
+      drawer: Drawer(
+        width: 300, // set custom width
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              child: Text(
+                'Dashboard Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // close drawer and navigate to item 1
+              },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () {
+                // close drawer and navigate to item 2
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: Text("Logout"),
+                          content: Text("Are you sure you want to logout?"),
+                          actions: [
+                            TextButton(
+                              child: Text("Cancel"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
+                                  );
+                                },
+                                child: Text("Logout"))
+                          ]);
+                    });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
