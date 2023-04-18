@@ -11,10 +11,10 @@ class Emoji extends StatefulWidget {
 
 class _EmojiState extends State<Emoji> {
   final List _emojiList = [
-    {'emoji': Icons.emoji_emotions, 'name': 'Neutral'},
-    {'emoji': Icons.emoji_nature, 'name': 'Sad'},
-    {'emoji': Icons.emoji_emotions, 'name': 'Happy'},
-    {'emoji': Icons.emoji_emotions, 'name': 'Angry'},
+    {'emoji': '🙂', 'name': 'Neutral'},
+    {'emoji': '😞', 'name': 'Sad'},
+    {'emoji': '🤪', 'name': 'Happy'},
+    {'emoji': '👺', 'name': 'Angry'},
   ];
 
   @override
@@ -27,7 +27,7 @@ class _EmojiState extends State<Emoji> {
           itemBuilder: (context, index) {
             return SingleEmoji(
               emojiText: _emojiList[index]['name'],
-              icon: _emojiList[index]['emoji'],
+              emojiFace: _emojiList[index]['emoji'],
             );
           }),
     );
@@ -36,11 +36,11 @@ class _EmojiState extends State<Emoji> {
 
 class SingleEmoji extends StatelessWidget {
   String emojiText;
-  IconData icon;
+  String emojiFace;
   SingleEmoji({
     Key? key,
     required this.emojiText,
-    required this.icon,
+    required this.emojiFace,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,12 @@ class SingleEmoji extends StatelessWidget {
               shape: BoxShape.circle,
               color: Theme.of(context).colorScheme.background,
             ),
-            child: Icon(icon),
+            child: Center(
+              child: Text(
+                emojiFace,
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           ),
           SizedBox(height: 8),
           Text(
