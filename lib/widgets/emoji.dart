@@ -13,8 +13,8 @@ class _EmojiState extends State<Emoji> {
   final List _emojiList = [
     {'emoji': '🙂', 'name': 'Neutral'},
     {'emoji': '😞', 'name': 'Sad'},
-    {'emoji': '🤪', 'name': 'Happy'},
-    {'emoji': '👺', 'name': 'Angry'},
+    {'emoji': '😁', 'name': 'Happy'},
+    {'emoji': '😠', 'name': 'Angry'},
   ];
 
   @override

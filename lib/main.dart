@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Theme/CustomColor.dart';
 import 'package:flutter_application_1/pages/homepage.dart';
+import 'package:flutter_application_1/pages/loginpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +18,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme(
           brightness: Brightness.light,
-          primary: Color(0xFF1C2D27),
+          primary: Color.fromARGB(255, 128, 137, 219),
           onPrimary: Color(0xFF1C2D27),
-          secondary: Color(0xff299272),
+          secondary: Color.fromARGB(255, 221, 221, 221),
           onSecondary: Color(0xff299272),
           error: Colors.red,
           onError: Colors.red,
@@ -56,12 +57,19 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      // home: const HomePage(),
+      initialRoute: LoginPage.routeName,
+      routes: {
+        LoginPage.routeName: (context) => LoginPage(),
+        HomePage.routeName: (context) => HomePage(),
+        // SignupPage.routeName: (context) => SignupPage(),
+      },
     );
   }
 }
 
 class HomePage extends StatefulWidget {
+  static const String routeName = '/home';
   const HomePage({super.key});
 
   @override
@@ -126,7 +134,72 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
       body: Center(child: Text('Settings')),
+      drawer: Drawer(
+        width: 300, // set custom width
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              child: Text(
+                'Dashboard Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // close drawer and navigate to item 1
+              },
+            ),
+            ListTile(
+              title: Text('Logout'),
+              onTap: () {
+                // close drawer and navigate to item 2
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: Text("Logout"),
+                          content: Text("Are you sure you want to logout?"),
+                          actions: [
+                            TextButton(
+                              child: Text(
+                                "Cancel",
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
+                                  );
+                                },
+                                child: Text(
+                                  "Logout",
+                                  style: Theme.of(context).textTheme.subtitle2,
+                                ))
+                          ]);
+                    });
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
